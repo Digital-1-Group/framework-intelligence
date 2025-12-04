@@ -1,0 +1,1082 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "version": "2.0.0",
+  "lastUpdated": "2025-12-03T18:58:00Z",
+  "description": "Comprehensive framework intelligence cache for AI agents - current versions, patterns, and deprecations",
+  "source": "local",
+  "maintainers": ["itsflippen-dev/framework-intelligence", "digital-1-group/framework-intelligence"],
+
+  "intelligence": {
+    "languages": {
+      "rust": {
+        "ecosystem": "rust",
+        "currentVersion": "1.75.0",
+        "packageManager": "cargo",
+        "configFiles": ["Cargo.toml", "rust-analyzer.json", ".cargo/config.toml"],
+        "currentPatterns": {
+          "rust-analyzer": {
+            "checkOnSave": {
+              "pattern": "{ \"rust-analyzer.checkOnSave\": { \"enable\": true, \"command\": \"clippy\" } }",
+              "description": "Object-based configuration for rust-analyzer check on save",
+              "since": "2023-06-01"
+            }
+          },
+          "edition": {
+            "pattern": "edition = \"2021\"",
+            "description": "Use Rust 2021 edition for latest features"
+          }
+        },
+        "deprecatedPatterns": {
+          "rust-analyzer.checkOnSave-boolean": {
+            "pattern": "\"rust-analyzer.checkOnSave\": true",
+            "replacement": "\"rust-analyzer.checkOnSave\": { \"enable\": true, \"command\": \"clippy\" }",
+            "severity": "error",
+            "deprecatedSince": "2023-06-01",
+            "reason": "Boolean syntax no longer supported, use object configuration"
+          },
+          "edition-2018": {
+            "pattern": "edition = \"2018\"",
+            "replacement": "edition = \"2021\"",
+            "severity": "warning",
+            "deprecatedSince": "2021-10-21",
+            "reason": "Rust 2021 edition provides better defaults and new features"
+          }
+        }
+      },
+      "python": {
+        "ecosystem": "python",
+        "currentVersion": "3.12.0",
+        "packageManager": "pip",
+        "configFiles": ["pyproject.toml", "requirements.txt", "setup.cfg"],
+        "currentPatterns": {
+          "packaging": {
+            "pattern": "pyproject.toml with [build-system]",
+            "description": "Use pyproject.toml for modern Python packaging"
+          },
+          "typing": {
+            "pattern": "def func(x: int) -> str:",
+            "description": "Use type hints for all functions"
+          }
+        },
+        "deprecatedPatterns": {
+          "setup.py": {
+            "pattern": "setup.py",
+            "replacement": "pyproject.toml",
+            "severity": "warning",
+            "deprecatedSince": "2022-05-01",
+            "reason": "PEP 517/518 recommends pyproject.toml"
+          },
+          "distutils": {
+            "pattern": "from distutils",
+            "replacement": "from setuptools",
+            "severity": "error",
+            "deprecatedSince": "2023-10-01",
+            "reason": "distutils removed in Python 3.12"
+          }
+        }
+      },
+      "javascript": {
+        "ecosystem": "javascript",
+        "currentVersion": "ES2024",
+        "packageManager": "npm",
+        "configFiles": ["package.json", "tsconfig.json", "jsconfig.json"],
+        "currentPatterns": {
+          "modules": {
+            "pattern": "\"type\": \"module\"",
+            "description": "Use ESM by default in package.json"
+          },
+          "target": {
+            "pattern": "\"target\": \"ES2022\"",
+            "description": "Target modern ES version"
+          }
+        },
+        "deprecatedPatterns": {
+          "commonjs-default": {
+            "pattern": "require() without \"type\": \"module\"",
+            "replacement": "import/export with \"type\": \"module\"",
+            "severity": "warning",
+            "deprecatedSince": "2023-01-01"
+          },
+          "es5-target": {
+            "pattern": "\"target\": \"ES5\"",
+            "replacement": "\"target\": \"ES2022\" or newer",
+            "severity": "error",
+            "deprecatedSince": "2023-05-01"
+          }
+        }
+      },
+      "go": {
+        "ecosystem": "go",
+        "currentVersion": "1.22.0",
+        "packageManager": "go mod",
+        "configFiles": ["go.mod", "go.sum"],
+        "currentPatterns": {
+          "modules": {
+            "pattern": "go 1.22",
+            "description": "Use Go 1.22+ for latest features"
+          }
+        },
+        "deprecatedPatterns": {
+          "gopath": {
+            "pattern": "GOPATH-based development",
+            "replacement": "Go modules (go mod init)",
+            "severity": "error",
+            "deprecatedSince": "2019-02-01"
+          }
+        }
+      },
+      "swift": {
+        "ecosystem": "swift",
+        "currentVersion": "5.9.0",
+        "packageManager": "swift package manager",
+        "configFiles": ["Package.swift"],
+        "currentPatterns": {
+          "concurrency": {
+            "pattern": "async/await, actors",
+            "description": "Use Swift concurrency for async code"
+          }
+        }
+      },
+      "kotlin": {
+        "ecosystem": "kotlin",
+        "currentVersion": "2.0.0",
+        "packageManager": "gradle",
+        "configFiles": ["build.gradle.kts", "settings.gradle.kts"]
+      },
+      "java": {
+        "ecosystem": "java",
+        "currentVersion": "21",
+        "packageManager": "maven/gradle",
+        "configFiles": ["pom.xml", "build.gradle"]
+      }
+    },
+
+    "runtimes": {
+      "nodejs": {
+        "ecosystem": "nodejs",
+        "currentVersion": "22.0.0",
+        "ltsVersion": "20.11.0",
+        "packageManager": "npm",
+        "configFiles": ["package.json", ".nvmrc", ".node-version"]
+      },
+      "deno": {
+        "ecosystem": "deno",
+        "currentVersion": "2.0.0",
+        "configFiles": ["deno.json", "deno.jsonc"]
+      },
+      "bun": {
+        "ecosystem": "bun",
+        "currentVersion": "1.1.0",
+        "configFiles": ["bunfig.toml", "package.json"]
+      }
+    },
+
+    "frontend": {
+      "react": {
+        "ecosystem": "react",
+        "currentVersion": "19.0.0",
+        "packageManager": "npm",
+        "configFiles": ["package.json", "vite.config.ts", "next.config.js"],
+        "currentPatterns": {
+          "hooks": {
+            "pattern": "use client components with 'use client' directive",
+            "description": "Explicit client component declaration in RSC"
+          },
+          "server-components": {
+            "pattern": "Server Components by default in Next.js App Router",
+            "description": "Components are server components unless marked 'use client'"
+          },
+          "suspense": {
+            "pattern": "<Suspense fallback={...}>",
+            "description": "Use Suspense for loading states"
+          }
+        },
+        "deprecatedPatterns": {
+          "class-components": {
+            "pattern": "class MyComponent extends React.Component",
+            "replacement": "function MyComponent() with hooks",
+            "severity": "warning",
+            "deprecatedSince": "2019-02-06"
+          },
+          "legacy-context": {
+            "pattern": "static contextTypes",
+            "replacement": "useContext(Context)",
+            "severity": "error",
+            "deprecatedSince": "2018-03-29"
+          },
+          "findDOMNode": {
+            "pattern": "ReactDOM.findDOMNode()",
+            "replacement": "useRef()",
+            "severity": "error",
+            "deprecatedSince": "2020-08-10"
+          }
+        }
+      },
+      "nextjs": {
+        "ecosystem": "nextjs",
+        "currentVersion": "15.0.0",
+        "packageManager": "npm",
+        "configFiles": ["next.config.js", "next.config.mjs", "next.config.ts"],
+        "currentPatterns": {
+          "appRouter": {
+            "pattern": "app/ directory with page.tsx, layout.tsx",
+            "description": "Use App Router for new projects"
+          },
+          "serverActions": {
+            "pattern": "'use server' directive for server mutations",
+            "description": "Server Actions for form handling and mutations"
+          },
+          "metadata": {
+            "pattern": "export const metadata: Metadata = {}",
+            "description": "Use Metadata API for SEO"
+          },
+          "turbopack": {
+            "pattern": "next dev --turbo",
+            "description": "Use Turbopack for faster development builds"
+          }
+        },
+        "deprecatedPatterns": {
+          "pagesRouter": {
+            "pattern": "pages/ directory",
+            "replacement": "app/ directory (App Router)",
+            "severity": "warning",
+            "deprecatedSince": "2023-05-04"
+          },
+          "getServerSideProps": {
+            "pattern": "export async function getServerSideProps",
+            "replacement": "async Server Components with fetch",
+            "severity": "warning",
+            "deprecatedSince": "2023-05-04"
+          },
+          "getStaticProps": {
+            "pattern": "export async function getStaticProps",
+            "replacement": "async Server Components",
+            "severity": "warning",
+            "deprecatedSince": "2023-05-04"
+          },
+          "next-head": {
+            "pattern": "import Head from 'next/head'",
+            "replacement": "export const metadata: Metadata",
+            "severity": "warning",
+            "deprecatedSince": "2023-05-04"
+          }
+        }
+      },
+      "vue": {
+        "ecosystem": "vue",
+        "currentVersion": "3.4.0",
+        "packageManager": "npm",
+        "configFiles": ["vite.config.ts", "vue.config.js"],
+        "currentPatterns": {
+          "compositionApi": {
+            "pattern": "<script setup>",
+            "description": "Use Composition API with script setup"
+          },
+          "defineModel": {
+            "pattern": "const model = defineModel()",
+            "description": "Use defineModel for v-model bindings"
+          }
+        },
+        "deprecatedPatterns": {
+          "optionsApi": {
+            "pattern": "export default { data(), methods: {} }",
+            "replacement": "<script setup> with Composition API",
+            "severity": "warning",
+            "deprecatedSince": "2022-02-07"
+          },
+          "vue2-syntax": {
+            "pattern": "new Vue()",
+            "replacement": "createApp()",
+            "severity": "error",
+            "deprecatedSince": "2020-09-18"
+          }
+        }
+      },
+      "nuxt": {
+        "ecosystem": "nuxt",
+        "currentVersion": "3.10.0",
+        "packageManager": "npm",
+        "configFiles": ["nuxt.config.ts"]
+      },
+      "svelte": {
+        "ecosystem": "svelte",
+        "currentVersion": "5.0.0",
+        "packageManager": "npm",
+        "configFiles": ["svelte.config.js"],
+        "currentPatterns": {
+          "runes": {
+            "pattern": "$state(), $derived(), $effect()",
+            "description": "Use Svelte 5 runes for reactivity"
+          }
+        },
+        "deprecatedPatterns": {
+          "stores": {
+            "pattern": "import { writable } from 'svelte/store'",
+            "replacement": "$state() rune",
+            "severity": "warning",
+            "deprecatedSince": "2024-10-01"
+          }
+        }
+      },
+      "sveltekit": {
+        "ecosystem": "sveltekit",
+        "currentVersion": "2.0.0",
+        "packageManager": "npm",
+        "configFiles": ["svelte.config.js", "vite.config.ts"]
+      },
+      "astro": {
+        "ecosystem": "astro",
+        "currentVersion": "4.0.0",
+        "packageManager": "npm",
+        "configFiles": ["astro.config.mjs"]
+      },
+      "angular": {
+        "ecosystem": "angular",
+        "currentVersion": "18.0.0",
+        "packageManager": "npm",
+        "configFiles": ["angular.json", "tsconfig.json"],
+        "currentPatterns": {
+          "signals": {
+            "pattern": "signal(), computed(), effect()",
+            "description": "Use Angular Signals for reactivity"
+          },
+          "standalone": {
+            "pattern": "standalone: true",
+            "description": "Use standalone components"
+          }
+        }
+      },
+      "solidjs": {
+        "ecosystem": "solidjs",
+        "currentVersion": "1.8.0",
+        "packageManager": "npm",
+        "configFiles": ["vite.config.ts"]
+      },
+      "qwik": {
+        "ecosystem": "qwik",
+        "currentVersion": "1.5.0",
+        "packageManager": "npm",
+        "configFiles": ["vite.config.ts"]
+      }
+    },
+
+    "uiStyling": {
+      "tailwindcss": {
+        "ecosystem": "tailwindcss",
+        "currentVersion": "4.0.0",
+        "packageManager": "npm",
+        "configFiles": ["tailwind.config.js", "tailwind.config.ts", "app.css"],
+        "currentPatterns": {
+          "cssFirst": {
+            "pattern": "@import 'tailwindcss'; @theme { --color-primary: #3b82f6; }",
+            "description": "Tailwind 4 uses CSS-first configuration with @theme directive"
+          },
+          "vitePlugin": {
+            "pattern": "import tailwindcss from '@tailwindcss/vite'",
+            "description": "Use Vite plugin for Tailwind 4"
+          },
+          "containerQueries": {
+            "pattern": "@container, @container/name",
+            "description": "Built-in container query support"
+          }
+        },
+        "deprecatedPatterns": {
+          "tailwind-config-js": {
+            "pattern": "module.exports = { theme: { extend: {} } }",
+            "replacement": "@theme { } directive in CSS",
+            "severity": "warning",
+            "deprecatedSince": "2024-11-01",
+            "reason": "Tailwind 4 uses CSS-first configuration"
+          },
+          "postcss-plugin": {
+            "pattern": "require('tailwindcss')",
+            "replacement": "import tailwindcss from '@tailwindcss/vite'",
+            "severity": "warning",
+            "deprecatedSince": "2024-11-01"
+          },
+          "purge-option": {
+            "pattern": "purge: ['./src/**/*.{js,jsx}']",
+            "replacement": "content: ['./src/**/*.{js,jsx}']",
+            "severity": "error",
+            "deprecatedSince": "2021-12-09"
+          }
+        }
+      },
+      "shadcn": {
+        "ecosystem": "shadcn",
+        "currentVersion": "2.0.0",
+        "packageManager": "npm",
+        "configFiles": ["components.json"],
+        "currentPatterns": {
+          "cli": {
+            "pattern": "npx shadcn@latest add button",
+            "description": "Use shadcn CLI to add components"
+          },
+          "init": {
+            "pattern": "npx shadcn@latest init",
+            "description": "Initialize shadcn in project"
+          },
+          "theme": {
+            "pattern": "CSS variables in globals.css",
+            "description": "Theme via CSS custom properties"
+          },
+          "icons": {
+            "pattern": "import { Icon } from 'lucide-react'",
+            "description": "Use lucide-react for icons in shadcn projects"
+          }
+        },
+        "deprecatedPatterns": {
+          "old-cli": {
+            "pattern": "npx shadcn-ui@latest",
+            "replacement": "npx shadcn@latest",
+            "severity": "warning",
+            "deprecatedSince": "2024-01-01"
+          },
+          "heroicons": {
+            "pattern": "import { Icon } from '@heroicons/react'",
+            "replacement": "import { Icon } from 'lucide-react'",
+            "severity": "warning",
+            "deprecatedSince": "2023-06-01",
+            "reason": "shadcn uses lucide-react by default"
+          }
+        }
+      },
+      "radixui": {
+        "ecosystem": "radixui",
+        "currentVersion": "1.1.0",
+        "packageManager": "npm",
+        "currentPatterns": {
+          "primitives": {
+            "pattern": "import * as Dialog from '@radix-ui/react-dialog'",
+            "description": "Use Radix primitives for accessible components"
+          }
+        }
+      },
+      "headlessui": {
+        "ecosystem": "headlessui",
+        "currentVersion": "2.0.0",
+        "packageManager": "npm"
+      },
+      "framermotion": {
+        "ecosystem": "framermotion",
+        "currentVersion": "11.0.0",
+        "packageManager": "npm",
+        "currentPatterns": {
+          "motion": {
+            "pattern": "import { motion } from 'framer-motion'",
+            "description": "Use motion components for animations"
+          }
+        },
+        "deprecatedPatterns": {
+          "animate-presence-exitBeforeEnter": {
+            "pattern": "exitBeforeEnter",
+            "replacement": "mode=\"wait\"",
+            "severity": "error",
+            "deprecatedSince": "2023-01-01"
+          }
+        }
+      },
+      "gsap": {
+        "ecosystem": "gsap",
+        "currentVersion": "3.12.0",
+        "packageManager": "npm"
+      }
+    },
+
+    "stateManagement": {
+      "zustand": {
+        "ecosystem": "zustand",
+        "currentVersion": "5.0.0",
+        "packageManager": "npm",
+        "currentPatterns": {
+          "store": {
+            "pattern": "const useStore = create((set) => ({}))",
+            "description": "Create stores with create function"
+          }
+        }
+      },
+      "jotai": {
+        "ecosystem": "jotai",
+        "currentVersion": "2.0.0",
+        "packageManager": "npm",
+        "currentPatterns": {
+          "atom": {
+            "pattern": "const countAtom = atom(0)",
+            "description": "Create atoms for state"
+          }
+        }
+      },
+      "reduxtoolkit": {
+        "ecosystem": "reduxtoolkit",
+        "currentVersion": "2.0.0",
+        "packageManager": "npm",
+        "currentPatterns": {
+          "slice": {
+            "pattern": "createSlice({ name, initialState, reducers })",
+            "description": "Use createSlice for reducers"
+          }
+        },
+        "deprecatedPatterns": {
+          "legacy-redux": {
+            "pattern": "import { createStore } from 'redux'",
+            "replacement": "import { configureStore } from '@reduxjs/toolkit'",
+            "severity": "error",
+            "deprecatedSince": "2022-01-01"
+          }
+        }
+      },
+      "tanstackquery": {
+        "ecosystem": "tanstackquery",
+        "currentVersion": "5.0.0",
+        "packageManager": "npm",
+        "currentPatterns": {
+          "query": {
+            "pattern": "useQuery({ queryKey: ['key'], queryFn: fetchFn })",
+            "description": "Use object syntax for useQuery"
+          }
+        },
+        "deprecatedPatterns": {
+          "react-query-v3": {
+            "pattern": "useQuery('key', fetchFn)",
+            "replacement": "useQuery({ queryKey: ['key'], queryFn })",
+            "severity": "error",
+            "deprecatedSince": "2023-04-01"
+          }
+        }
+      },
+      "swr": {
+        "ecosystem": "swr",
+        "currentVersion": "2.0.0",
+        "packageManager": "npm"
+      },
+      "pinia": {
+        "ecosystem": "pinia",
+        "currentVersion": "2.1.0",
+        "packageManager": "npm",
+        "currentPatterns": {
+          "store": {
+            "pattern": "defineStore('id', () => { const count = ref(0); return { count } })",
+            "description": "Use setup store syntax"
+          }
+        }
+      }
+    },
+
+    "backend": {
+      "express": {
+        "ecosystem": "express",
+        "currentVersion": "5.0.0",
+        "packageManager": "npm",
+        "currentPatterns": {
+          "async-handlers": {
+            "pattern": "app.get('/route', async (req, res) => {})",
+            "description": "Express 5 handles async errors automatically"
+          }
+        }
+      },
+      "fastify": {
+        "ecosystem": "fastify",
+        "currentVersion": "5.0.0",
+        "packageManager": "npm"
+      },
+      "hono": {
+        "ecosystem": "hono",
+        "currentVersion": "4.0.0",
+        "packageManager": "npm",
+        "currentPatterns": {
+          "app": {
+            "pattern": "const app = new Hono()",
+            "description": "Create Hono app instance"
+          }
+        }
+      },
+      "nestjs": {
+        "ecosystem": "nestjs",
+        "currentVersion": "10.0.0",
+        "packageManager": "npm",
+        "currentPatterns": {
+          "decorators": {
+            "pattern": "@Controller(), @Get(), @Injectable()",
+            "description": "Use decorators for NestJS"
+          }
+        }
+      },
+      "trpc": {
+        "ecosystem": "trpc",
+        "currentVersion": "11.0.0",
+        "packageManager": "npm",
+        "currentPatterns": {
+          "router": {
+            "pattern": "t.router({ greeting: t.procedure.query(() => 'Hello') })",
+            "description": "Define tRPC routers with procedures"
+          }
+        }
+      },
+      "graphql": {
+        "ecosystem": "graphql",
+        "currentVersion": "16.0.0",
+        "packageManager": "npm"
+      },
+      "django": {
+        "ecosystem": "django",
+        "currentVersion": "5.0.0",
+        "packageManager": "pip",
+        "currentPatterns": {
+          "urls": {
+            "pattern": "from django.urls import path, include",
+            "description": "Use django.urls for URL configuration"
+          }
+        },
+        "deprecatedPatterns": {
+          "conf-urls": {
+            "pattern": "from django.conf.urls import url",
+            "replacement": "from django.urls import path, re_path",
+            "severity": "error",
+            "deprecatedSince": "2021-04-06"
+          }
+        }
+      },
+      "fastapi": {
+        "ecosystem": "fastapi",
+        "currentVersion": "0.110.0",
+        "packageManager": "pip",
+        "currentPatterns": {
+          "app": {
+            "pattern": "app = FastAPI()",
+            "description": "Create FastAPI application"
+          },
+          "typing": {
+            "pattern": "@app.get('/') async def root() -> dict:",
+            "description": "Use return type annotations"
+          }
+        }
+      },
+      "flask": {
+        "ecosystem": "flask",
+        "currentVersion": "3.0.0",
+        "packageManager": "pip"
+      },
+      "actixweb": {
+        "ecosystem": "actixweb",
+        "currentVersion": "4.0.0",
+        "packageManager": "cargo"
+      },
+      "axum": {
+        "ecosystem": "axum",
+        "currentVersion": "0.7.0",
+        "packageManager": "cargo",
+        "currentPatterns": {
+          "router": {
+            "pattern": "Router::new().route(\"/\", get(handler))",
+            "description": "Use Router for Axum routing"
+          }
+        }
+      }
+    },
+
+    "database": {
+      "prisma": {
+        "ecosystem": "prisma",
+        "currentVersion": "5.10.0",
+        "packageManager": "npm",
+        "configFiles": ["prisma/schema.prisma"],
+        "currentPatterns": {
+          "schema": {
+            "pattern": "model User { id Int @id @default(autoincrement()) }",
+            "description": "Define models in schema.prisma"
+          },
+          "client": {
+            "pattern": "import { PrismaClient } from '@prisma/client'",
+            "description": "Import PrismaClient from @prisma/client"
+          }
+        }
+      },
+      "drizzle": {
+        "ecosystem": "drizzle",
+        "currentVersion": "0.30.0",
+        "packageManager": "npm",
+        "configFiles": ["drizzle.config.ts"],
+        "currentPatterns": {
+          "schema": {
+            "pattern": "export const users = pgTable('users', { id: serial('id').primaryKey() })",
+            "description": "Define schemas with drizzle-orm"
+          }
+        }
+      },
+      "typeorm": {
+        "ecosystem": "typeorm",
+        "currentVersion": "0.3.0",
+        "packageManager": "npm"
+      },
+      "sqlalchemy": {
+        "ecosystem": "sqlalchemy",
+        "currentVersion": "2.0.0",
+        "packageManager": "pip",
+        "currentPatterns": {
+          "async": {
+            "pattern": "from sqlalchemy.ext.asyncio import create_async_engine",
+            "description": "Use async SQLAlchemy 2.0"
+          }
+        },
+        "deprecatedPatterns": {
+          "legacy-query": {
+            "pattern": "session.query(Model)",
+            "replacement": "select(Model)",
+            "severity": "warning",
+            "deprecatedSince": "2023-01-26"
+          }
+        }
+      },
+      "diesel": {
+        "ecosystem": "diesel",
+        "currentVersion": "2.1.0",
+        "packageManager": "cargo"
+      },
+      "mongoose": {
+        "ecosystem": "mongoose",
+        "currentVersion": "8.0.0",
+        "packageManager": "npm"
+      },
+      "supabase": {
+        "ecosystem": "supabase",
+        "currentVersion": "2.40.0",
+        "packageManager": "npm",
+        "currentPatterns": {
+          "client": {
+            "pattern": "import { createClient } from '@supabase/supabase-js'",
+            "description": "Create Supabase client"
+          }
+        }
+      }
+    },
+
+    "buildTools": {
+      "vite": {
+        "ecosystem": "vite",
+        "currentVersion": "5.0.0",
+        "packageManager": "npm",
+        "configFiles": ["vite.config.ts", "vite.config.js"]
+      },
+      "turbopack": {
+        "ecosystem": "turbopack",
+        "currentVersion": "latest",
+        "description": "Bundled with Next.js, use via next dev --turbo"
+      },
+      "esbuild": {
+        "ecosystem": "esbuild",
+        "currentVersion": "0.20.0",
+        "packageManager": "npm"
+      },
+      "webpack": {
+        "ecosystem": "webpack",
+        "currentVersion": "5.90.0",
+        "packageManager": "npm",
+        "configFiles": ["webpack.config.js"]
+      },
+      "rollup": {
+        "ecosystem": "rollup",
+        "currentVersion": "4.0.0",
+        "packageManager": "npm"
+      },
+      "parcel": {
+        "ecosystem": "parcel",
+        "currentVersion": "2.12.0",
+        "packageManager": "npm"
+      },
+      "biome": {
+        "ecosystem": "biome",
+        "currentVersion": "1.5.0",
+        "packageManager": "npm",
+        "configFiles": ["biome.json"],
+        "currentPatterns": {
+          "config": {
+            "pattern": "{ \"$schema\": \"https://biomejs.dev/schemas/1.5.0/schema.json\" }",
+            "description": "Biome configuration in biome.json"
+          }
+        }
+      },
+      "eslint": {
+        "ecosystem": "eslint",
+        "currentVersion": "9.0.0",
+        "packageManager": "npm",
+        "configFiles": ["eslint.config.js", "eslint.config.mjs"],
+        "currentPatterns": {
+          "flatConfig": {
+            "pattern": "export default [{ rules: {} }]",
+            "description": "ESLint 9 uses flat config format"
+          }
+        },
+        "deprecatedPatterns": {
+          "eslintrc": {
+            "pattern": ".eslintrc.js, .eslintrc.json, .eslintrc.yaml",
+            "replacement": "eslint.config.js (flat config)",
+            "severity": "warning",
+            "deprecatedSince": "2024-04-05"
+          },
+          "extends-array": {
+            "pattern": "extends: ['eslint:recommended']",
+            "replacement": "import js from '@eslint/js'; export default [js.configs.recommended]",
+            "severity": "warning",
+            "deprecatedSince": "2024-04-05"
+          }
+        }
+      },
+      "prettier": {
+        "ecosystem": "prettier",
+        "currentVersion": "3.2.0",
+        "packageManager": "npm",
+        "configFiles": [".prettierrc", "prettier.config.js"]
+      }
+    },
+
+    "testing": {
+      "vitest": {
+        "ecosystem": "vitest",
+        "currentVersion": "1.3.0",
+        "packageManager": "npm",
+        "configFiles": ["vitest.config.ts"]
+      },
+      "jest": {
+        "ecosystem": "jest",
+        "currentVersion": "30.0.0",
+        "packageManager": "npm",
+        "configFiles": ["jest.config.js", "jest.config.ts"]
+      },
+      "playwright": {
+        "ecosystem": "playwright",
+        "currentVersion": "1.41.0",
+        "packageManager": "npm",
+        "configFiles": ["playwright.config.ts"]
+      },
+      "testinglibrary": {
+        "ecosystem": "testinglibrary",
+        "currentVersion": "15.0.0",
+        "packageManager": "npm"
+      },
+      "cypress": {
+        "ecosystem": "cypress",
+        "currentVersion": "13.0.0",
+        "packageManager": "npm",
+        "configFiles": ["cypress.config.ts"]
+      },
+      "pytest": {
+        "ecosystem": "pytest",
+        "currentVersion": "8.0.0",
+        "packageManager": "pip",
+        "configFiles": ["pytest.ini", "pyproject.toml"]
+      }
+    },
+
+    "mobile": {
+      "reactnative": {
+        "ecosystem": "reactnative",
+        "currentVersion": "0.73.0",
+        "packageManager": "npm",
+        "currentPatterns": {
+          "newArch": {
+            "pattern": "newArchEnabled=true in gradle.properties",
+            "description": "Enable New Architecture for better performance"
+          }
+        }
+      },
+      "expo": {
+        "ecosystem": "expo",
+        "currentVersion": "50.0.0",
+        "packageManager": "npm",
+        "configFiles": ["app.json", "app.config.js"],
+        "currentPatterns": {
+          "router": {
+            "pattern": "expo-router for file-based routing",
+            "description": "Use expo-router for navigation"
+          }
+        }
+      },
+      "tauri": {
+        "ecosystem": "tauri",
+        "currentVersion": "2.0.0",
+        "packageManager": "cargo",
+        "configFiles": ["tauri.conf.json"],
+        "currentPatterns": {
+          "v2": {
+            "pattern": "Tauri 2.0 with mobile support",
+            "description": "Use Tauri 2.0 for cross-platform including mobile"
+          }
+        }
+      },
+      "electron": {
+        "ecosystem": "electron",
+        "currentVersion": "29.0.0",
+        "packageManager": "npm"
+      },
+      "swiftui": {
+        "ecosystem": "swiftui",
+        "currentVersion": "5.0",
+        "description": "SwiftUI for iOS/macOS development"
+      },
+      "jetpackcompose": {
+        "ecosystem": "jetpackcompose",
+        "currentVersion": "1.6.0",
+        "description": "Jetpack Compose for Android development"
+      }
+    },
+
+    "devops": {
+      "docker": {
+        "ecosystem": "docker",
+        "currentVersion": "25.0.0",
+        "configFiles": ["Dockerfile", "docker-compose.yml", "compose.yaml"],
+        "currentPatterns": {
+          "compose": {
+            "pattern": "compose.yaml (preferred over docker-compose.yml)",
+            "description": "Use compose.yaml for Docker Compose"
+          }
+        }
+      },
+      "kubernetes": {
+        "ecosystem": "kubernetes",
+        "currentVersion": "1.29.0",
+        "configFiles": ["*.yaml", "*.yml"]
+      },
+      "terraform": {
+        "ecosystem": "terraform",
+        "currentVersion": "1.7.0",
+        "configFiles": ["*.tf", "terraform.tfvars"]
+      },
+      "pulumi": {
+        "ecosystem": "pulumi",
+        "currentVersion": "3.100.0",
+        "configFiles": ["Pulumi.yaml"]
+      },
+      "githubactions": {
+        "ecosystem": "githubactions",
+        "currentVersion": "latest",
+        "configFiles": [".github/workflows/*.yml"]
+      },
+      "gitlabci": {
+        "ecosystem": "gitlabci",
+        "currentVersion": "latest",
+        "configFiles": [".gitlab-ci.yml"]
+      }
+    },
+
+    "aiml": {
+      "openai": {
+        "ecosystem": "openai",
+        "currentVersion": "1.12.0",
+        "packageManager": "npm",
+        "currentPatterns": {
+          "client": {
+            "pattern": "import OpenAI from 'openai'; const openai = new OpenAI();",
+            "description": "Use new OpenAI client syntax"
+          },
+          "streaming": {
+            "pattern": "for await (const chunk of stream) {}",
+            "description": "Use async iteration for streaming"
+          }
+        },
+        "deprecatedPatterns": {
+          "old-api": {
+            "pattern": "openai.createCompletion()",
+            "replacement": "openai.completions.create()",
+            "severity": "error",
+            "deprecatedSince": "2023-11-06"
+          }
+        }
+      },
+      "anthropic": {
+        "ecosystem": "anthropic",
+        "currentVersion": "0.18.0",
+        "packageManager": "npm",
+        "currentPatterns": {
+          "client": {
+            "pattern": "import Anthropic from '@anthropic-ai/sdk';",
+            "description": "Import Anthropic SDK"
+          },
+          "messages": {
+            "pattern": "client.messages.create({ model: 'claude-3-opus-20240229' })",
+            "description": "Use messages API"
+          }
+        }
+      },
+      "langchain": {
+        "ecosystem": "langchain",
+        "currentVersion": "0.1.0",
+        "packageManager": "npm",
+        "currentPatterns": {
+          "lcel": {
+            "pattern": "prompt.pipe(model).pipe(outputParser)",
+            "description": "Use LCEL (LangChain Expression Language)"
+          }
+        }
+      },
+      "llamaindex": {
+        "ecosystem": "llamaindex",
+        "currentVersion": "0.10.0",
+        "packageManager": "pip"
+      },
+      "vercelai": {
+        "ecosystem": "vercelai",
+        "currentVersion": "3.0.0",
+        "packageManager": "npm",
+        "currentPatterns": {
+          "sdk": {
+            "pattern": "import { generateText } from 'ai';",
+            "description": "Use Vercel AI SDK 3.0"
+          },
+          "streaming": {
+            "pattern": "streamText({ model, prompt })",
+            "description": "Use streamText for streaming responses"
+          }
+        }
+      },
+      "huggingface": {
+        "ecosystem": "huggingface",
+        "currentVersion": "4.38.0",
+        "packageManager": "pip"
+      }
+    }
+  },
+
+  "validation": {
+    "lastChecked": "2025-12-03T18:58:00Z",
+    "nextUpdate": "2025-12-04T18:58:00Z",
+    "updateInterval": "24h"
+  },
+
+  "agentRules": {
+    "mandatory": [
+      "Read .framework-intelligence.json before generating ANY code",
+      "Identify ALL relevant frameworks for current task",
+      "Use ONLY current patterns from intelligence cache",
+      "NEVER use deprecated patterns listed in cache",
+      "Update intelligence if older than 24h using refresh script",
+      "Validate generated configs against intelligence patterns",
+      "Check framework versions before suggesting dependencies"
+    ],
+    "categorySpecific": {
+      "frontend": [
+        "Use React 19 patterns (Server Components, Suspense)",
+        "Use Tailwind 4 CSS-first config, not JS config",
+        "Use shadcn CLI: npx shadcn@latest",
+        "Use lucide-react for icons in shadcn projects"
+      ],
+      "backend": [
+        "Use async/await patterns",
+        "Use type annotations",
+        "Follow REST or GraphQL best practices"
+      ],
+      "database": [
+        "Use Prisma or Drizzle for TypeScript projects",
+        "Use SQLAlchemy 2.0 patterns for Python"
+      ],
+      "devops": [
+        "Use compose.yaml for Docker Compose",
+        "Use ESLint 9 flat config"
+      ],
+      "aiml": [
+        "Use latest SDK patterns (OpenAI 1.x, Anthropic 0.18+)",
+        "Use streaming where appropriate"
+      ]
+    }
+  }
+}
